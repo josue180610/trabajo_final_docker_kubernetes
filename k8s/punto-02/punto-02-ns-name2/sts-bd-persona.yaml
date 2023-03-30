@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sts-bd-persona
+  labels:
+    app: sts-bd
+  namespace: name2
+spec:
+  selector:
+    matchLabels:
+      app: sts-bd
+  replicas: 2
+  serviceName: "sts-bd-persona"
+  template: 
+    metadata:
+      labels:
+        app: sts-bd
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-db-persona
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_ROOT_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: secret-db-persona
+                  key: MYSQL_ROOT_HOST
+          image: josue180610/mysql-persona:1.0.0
+          name: bd
+          ports:
+            - containerPort: 3306

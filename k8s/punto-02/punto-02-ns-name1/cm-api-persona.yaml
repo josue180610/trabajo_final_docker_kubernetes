@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-api-persona
+  namespace: name1
+data:
+  #DB_HOST_MYSQL: 10.0.68.141
+  DB_HOST_MYSQL: service-db-persona.name1.svc.cluster.local
+  DB_PORT_MYSQL: '3306'
+  DB_USERNAME_MYSQL: root
+  DB_PASSWORD_MYSQL: persona
+  DB_MYSQL: demobd
+
+

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: service-persona
+  name: service-api-persona
+  namespace: name1
+spec:
+  ports:
+  - name: http-persona
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rs-persona
+  type: ClusterIP

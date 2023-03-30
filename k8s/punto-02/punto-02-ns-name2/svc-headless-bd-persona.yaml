@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-db-persona
+  namespace: name2
+  labels:
+    app: headless-db-persona
+spec:
+  clusterIP: None
+  selector:
+    app: sts-bd
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306 
+    name: mysql-persona

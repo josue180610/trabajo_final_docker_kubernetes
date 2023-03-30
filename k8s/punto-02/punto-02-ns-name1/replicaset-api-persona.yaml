@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-api-persona
+  labels:
+    app: rs-persona
+  namespace: name1
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      app: rs-persona
+  template:
+    metadata:
+      labels:
+        app: rs-persona
+    spec:
+      nodeSelector:
+        node: system
+      containers:
+      - image: josue180610/api-persona-app:1.0.1
+        name: persona-app-rs
+        ports:
+          - containerPort: 8080
+        env:
+        - name: host
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST_MYSQL
+              name: cm-api-persona
+        - name: port
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT_MYSQL
+              name: cm-api-persona
+        - name: username
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USERNAME_MYSQL
+              name: cm-api-persona
+        - name: password
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASSWORD_MYSQL
+              name: cm-api-persona
+        - name: database
+          valueFrom:
+            configMapKeyRef:
+              key: DB_MYSQL
+              name: cm-api-persona
+        

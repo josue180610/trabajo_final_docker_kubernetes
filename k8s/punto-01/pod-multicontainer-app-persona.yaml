@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: api-persona
+    version: v1
+  name: api-persona-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: persona
+        - name: MYSQL_ROOT_HOST
+          value: '%'
+      image: josue180610/mysql-persona:1.0.0
+      name: bd
+      ports:
+        - containerPort: 3306
+    - env:
+        - name: host
+          value: localhost
+        - name: port
+          value: '3306'
+        - name: username
+          value: root
+        - name: password
+          value: persona
+        - name: database
+          value: demobd
+      image: josue180610/api-persona-app:1.0.1
+      name: persona-app
+      ports:
+        - containerPort: 8080
+  nodeSelector:
+    node: system
+  

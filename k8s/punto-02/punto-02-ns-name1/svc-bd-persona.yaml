@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-db-persona
+  namespace: name1
+  labels:
+    app: service-db
+spec:
+  type: ClusterIP
+  selector:
+    app: service-db
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306 
+    name: mysql-persona
